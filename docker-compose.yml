@@ -1,0 +1,57 @@
+version: "3.6"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "backend"
+    volumes:
+      - ./frontend:/frontend
+      - node_modules:/frontend/node_modules
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - "supertokens"
+    volumes:
+      - ./backend:/go/src/backend
+    environment:
+      APP_NAME: auth-app
+      API_DOMAIN: http://localhost:8000
+      WEB_SITE_DOMAIN: http://localhost:3000
+      # supertokens
+      CONNECTION_URL: http://supertokens:3567
+      API_KEYS: Y2T3PYq8Wr7Zg6m07Vkz7CskZcVfNs
+  supertokens:
+    image: registry.supertokens.io/supertokens/supertokens-postgresql
+    ports:
+      - "3567:3567"
+    depends_on:
+      - "postgres"
+    restart: always
+    environment:
+      POSTGRESQL_CONNECTION_URI: postgres://user:password@postgres:5432/database
+      API_KEYS: Y2T3PYq8Wr7Zg6m07Vkz7CskZcVfNs
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: database
+volumes:
+  node_modules:
+  db_data:
