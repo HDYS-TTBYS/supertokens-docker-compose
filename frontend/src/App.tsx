@@ -72,7 +72,7 @@ SuperTokens.init({
                     "パスワードリセットトークンが無効です",
 
                 ERROR_EMAIL_NON_STRING: "電子メールは文字である必要があります",
-                ERROR_EMAIL_INVALID: "無効な電子メールです",
+                ERROR_EMAIL_INVALID: "無効な電子メールアドレスです",
 
                 ERROR_PASSWORD_NON_STRING:
                     "パスワードは文字である必要があります",
@@ -105,7 +105,7 @@ SuperTokens.init({
                     "パスワードには少なくとも1つのアルファベットが含まれている必要があります",
                 "Password must contain at least one number":
                     "パスワードには少なくとも1つの数字が含まれている必要があります",
-                "Email is invalid": "無効な電子メールです",
+                "Email is invalid": "無効な電子メールアドレスです",
             },
         },
         defaultLanguage: "ja",
@@ -120,6 +120,25 @@ SuperTokens.init({
     recipeList: [
         EmailPassword.init({
             useShadowDom: false,
+            signInAndUpFeature: {
+                signUpForm: {
+                    formFields: [{
+                        id: "email",
+                        label: "Eメール",
+                        validate: async (value: string) => {
+                            // no error => undefined
+                            const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+                            if (!regex.test(value)) {
+                                return "無効な電子メールアドレスです"
+                            }
+                            if (value.split("@")[1] !== "outlook.jp") {
+                                return "許可されていないドメインのメールアドレスです。"
+                            }
+                            return undefined
+                        }
+                    }]
+                }
+            }
         }),
         Session.init(),
     ],

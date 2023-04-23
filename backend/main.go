@@ -5,11 +5,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/cors"
 	"github.com/supertokens/supertokens-golang/recipe/dashboard"
 	"github.com/supertokens/supertokens-golang/recipe/emailpassword"
+	"github.com/supertokens/supertokens-golang/recipe/emailpassword/epmodels"
 	"github.com/supertokens/supertokens-golang/recipe/session"
 	"github.com/supertokens/supertokens-golang/supertokens"
 )
@@ -32,7 +34,24 @@ func main() {
 		},
 		RecipeList: []supertokens.Recipe{
 			dashboard.Init(nil),
-			emailpassword.Init(nil),
+			emailpassword.Init(&epmodels.TypeInput{
+				SignUpFeature: &epmodels.TypeInputSignUp{
+					FormFields: []epmodels.TypeInputFormField{
+						{
+							ID: "email",
+							Validate: func(value interface{}) *string {
+								// エラーがない場合は文字列または nil を返す独自の検証。
+								v := value.(string)
+								if strings.Split(v, "@")[1] != "outlook.jp" {
+									r := "許可されていないドメインのメールアドレスです。"
+									return &r
+								}
+								return nil
+							},
+						},
+					},
+				},
+			}),
 			session.Init(nil),
 		},
 	})
@@ -43,7 +62,6 @@ func main() {
 	r := chi.NewRouter()
 
 	// CORS
-
 	r.Use(cors.Handler(cors.Options{
 		AllowedOrigins: []string{os.Getenv("WEB_SITE_DOMAIN")},
 		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
