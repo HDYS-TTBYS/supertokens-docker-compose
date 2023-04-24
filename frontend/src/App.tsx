@@ -129,7 +129,7 @@ SuperTokens.init({
                             // no error => undefined
                             const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
                             if (!regex.test(value)) {
-                                return "無効な電子メールアドレスです"
+                                return "無効な電子メールアドレスです。"
                             }
                             if (value.split("@")[1] !== "outlook.jp") {
                                 return "許可されていないドメインのメールアドレスです。"

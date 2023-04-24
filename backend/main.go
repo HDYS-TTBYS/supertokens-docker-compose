@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"net/mail"
 	"os"
 	"strings"
 
@@ -42,6 +43,11 @@ func main() {
 							Validate: func(value interface{}) *string {
 								// エラーがない場合は文字列または nil を返す独自の検証。
 								v := value.(string)
+								_, err := mail.ParseAddress(v)
+								if err != nil {
+									r := "無効な電子メールアドレスです。"
+									return &r
+								}
 								if strings.Split(v, "@")[1] != "outlook.jp" {
 									r := "許可されていないドメインのメールアドレスです。"
 									return &r
