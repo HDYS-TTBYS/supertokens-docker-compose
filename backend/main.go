@@ -13,6 +13,8 @@ import (
 	"github.com/supertokens/supertokens-golang/recipe/dashboard"
 	"github.com/supertokens/supertokens-golang/recipe/emailpassword"
 	"github.com/supertokens/supertokens-golang/recipe/emailpassword/epmodels"
+	"github.com/supertokens/supertokens-golang/recipe/emailverification"
+	"github.com/supertokens/supertokens-golang/recipe/emailverification/evmodels"
 	"github.com/supertokens/supertokens-golang/recipe/session"
 	"github.com/supertokens/supertokens-golang/supertokens"
 )
@@ -57,6 +59,9 @@ func main() {
 						},
 					},
 				},
+			}),
+			emailverification.Init(evmodels.TypeInput{
+				Mode: evmodels.ModeRequired,
 			}),
 			session.Init(nil),
 		},

@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SuperTokens, { SuperTokensWrapper, getSuperTokensRoutesForReactRouterDom } from "supertokens-auth-react";
 import EmailPassword from "supertokens-auth-react/recipe/emailpassword";
+import EmailVerification from "supertokens-auth-react/recipe/emailverification";
 import Session, { SessionAuth } from "supertokens-auth-react/recipe/session";
 import * as reactRouterDom from "react-router-dom";
 import Index from "./pages/Index";
@@ -89,6 +90,26 @@ SuperTokens.init({
 
                 ERROR_NON_OPTIONAL: "フィールドは必須です",
 
+                EMAIL_VERIFICATION_SEND_TITLE: "メールを確認してください",
+
+                EMAIL_VERIFICATION_RESEND_BTN: "メールを再送する",
+
+                EMAIL_VERIFICATION_SEND_DESC_START: "",
+
+                EMAIL_VERIFICATION_SEND_DESC_STRONG: "メールのリンクをクリックして登録を完了してください。",
+
+                EMAIL_VERIFICATION_SEND_DESC_END: "",
+
+                EMAIL_VERIFICATION_LOGOUT: "ログアウト",
+
+                EMAIL_VERIFICATION_SUCCESS: "メールの確認が完了しました。",
+
+                EMAIL_VERIFICATION_CONTINUE_BTN: "完了",
+
+                EMAIL_VERIFICATION_EXPIRED: "メールの確認は完了しています。",
+
+                EMAIL_VERIFICATION_CONTINUE_LINK: "戻る",
+
                 /*
                  * 以下は、バックエンドSDKからのエラーメッセージです。
                  * これらは互換性を保つために完全なメッセージとして返されますが、上記のキーと同じように機能します。
@@ -139,6 +160,9 @@ SuperTokens.init({
                     }]
                 }
             }
+        }),
+        EmailVerification.init({
+            mode: "REQUIRED",
         }),
         Session.init(),
     ],
