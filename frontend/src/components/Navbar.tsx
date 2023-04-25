@@ -11,6 +11,7 @@ const Navbar = () => {
       <ul>
         <li>Home</li>
         <li onClick={onLogout}>Logout</li>
+        <li><a href="/auth/reset-password">Reset Password</a></li>
       </ul>
     </div>
   )

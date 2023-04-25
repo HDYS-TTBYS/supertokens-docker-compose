@@ -31,8 +31,11 @@ services:
       # supertokens
       CONNECTION_URL: http://supertokens:3567
       API_KEYS: Y2T3PYq8Wr7Zg6m07Vkz7CskZcVfNs
+      # SUPERTOKENS_DEBUG: false
+    env_file:
+      - .env
   supertokens:
-    image: registry.supertokens.io/supertokens/supertokens-postgresql
+    image: registry.supertokens.io/supertokens/supertokens-postgresql:4.6
     ports:
       - "3567:3567"
     depends_on:
@@ -41,6 +44,7 @@ services:
     environment:
       POSTGRESQL_CONNECTION_URI: postgres://user:password@postgres:5432/database
       API_KEYS: Y2T3PYq8Wr7Zg6m07Vkz7CskZcVfNs
+      LOG_LEVEL: DEBUG
   postgres:
     image: postgres
     restart: always

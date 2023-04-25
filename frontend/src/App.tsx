@@ -110,6 +110,20 @@ SuperTokens.init({
 
                 EMAIL_VERIFICATION_CONTINUE_LINK: "戻る",
 
+                SOMETHING_WENT_WRONG_ERROR: "エラーが発生しました。",
+
+                EMAIL_VERIFICATION_RESEND_SUCCESS: "メールが送信されました。",
+
+                EMAIL_PASSWORD_RESET_SEND_BEFORE_EMAIL: "パスワードをリセットするためのリンクを",
+
+                EMAIL_PASSWORD_RESET_SEND_AFTER_EMAIL: "に送信しました。",
+
+                EMAIL_PASSWORD_RESET_SIGN_IN_LINK: "戻る",
+
+                BRANDING_POWERED_BY_START: "",
+
+                BRANDING_POWERED_BY_END: "",
+
                 /*
                  * 以下は、バックエンドSDKからのエラーメッセージです。
                  * これらは互換性を保つために完全なメッセージとして返されますが、上記のキーと同じように機能します。
